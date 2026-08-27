@@ -81,15 +81,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "author", content: "Dar Baya" },
         { name: "theme-color", content: "#C9622B" },
-        ...(isDev
-          ? []
-          : [
-              {
-                httpEquiv: "Content-Security-Policy" as const,
-                content:
-                  "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me https://maps.google.com; upgrade-insecure-requests",
-              },
-            ]),
+        {
+          httpEquiv: "Content-Security-Policy" as const,
+          content: `default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://www.google.com; connect-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me https://maps.google.com;${isDev ? "" : " upgrade-insecure-requests"}`,
+        },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Dar Baya" },
         { property: "og:locale", content: "fr_FR" },
